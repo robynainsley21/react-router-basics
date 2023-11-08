@@ -9,14 +9,13 @@ export const careersLoader = async () => {
 
   return res.json();
 };
-
-export default function Careers(){
+const Careers = () => {
   const careers = useLoaderData();
-
+console.log(careers)
   return (
     <div className="careers">
       {careers.map(career => (
-        <Link to='/' key={career.id}>
+        <Link to={career.id.toString()} key={career.id}>
             <p>{career.title}</p>
             <p> Based in {career.location}</p>
         </Link>
@@ -25,3 +24,4 @@ export default function Careers(){
   );
 };
 
+export default Careers;
