@@ -10,15 +10,18 @@ import {
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Faq from "./pages/help/Faq";
-import Contact from "./pages/help/Contact";
+import Contact, { contactAction } from "./pages/help/Contact";
 import NotFound from "./pages/NotFound";
-import Careers, { careersLoader } from './pages/careers/Careers'
-import CareerDetails, { CareerDetailsLoader } from "./pages/careers/CareerDetails";
+import Careers, { careersLoader } from "./pages/careers/Careers";
+import CareerDetails, {
+  CareerDetailsLoader,
+} from "./pages/careers/CareerDetails";
+import CareerError from "./pages/careers/CareersError";
 
 // LAYOUTS
 import RootLayout from "./layouts/RootLayout";
 import HelpLayout from "./layouts/HelpLayout";
-import CareersLayout from "./layouts/CareersLayout"
+import CareersLayout from "./layouts/CareersLayout";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,18 +32,18 @@ const router = createBrowserRouter(
       <Route path="about" element={<About />} />
 
       <Route path="help" element={<HelpLayout />}>
-        <Route path="faq" element={<Faq />}/>
-        <Route path="contact" element={<Contact />}/>
+        <Route path="faq" element={<Faq />} />
+        <Route path="contact" element={<Contact />} action={contactAction}/>
       </Route>
 
-      <Route path="careers" element={<CareersLayout />}>
-        <Route 
-        index 
-        element={<Careers />}
-        loader={careersLoader}
-        />
+      <Route
+        path="careers"
+        element={<CareersLayout />}
+        errorElement={<CareerError />}
+      >
+        <Route index element={<Careers />} loader={careersLoader} />
         <Route
-          path=':id'
+          path=":id"
           element={<CareerDetails />}
           loader={CareerDetailsLoader}
         />
@@ -48,7 +51,7 @@ const router = createBrowserRouter(
 
       {/* 404 page */}
       {/* if none of the pages before match, the one below will be displayed */}
-      <Route path="*" element={<NotFound />}/>
+      <Route path="*" element={<NotFound />} />
     </Route>
   )
 );

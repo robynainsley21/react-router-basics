@@ -1,14 +1,5 @@
 import { useLoaderData, Link } from "react-router-dom";
 
-/**
- * Loader function
- * Fetches any data to be used in the component
- */
-export const careersLoader = async () => {
-  const res = await fetch("http://localhost:4000/careers");
-
-  return res.json();
-};
 const Careers = () => {
   const careers = useLoaderData();
 console.log(careers)
@@ -22,6 +13,20 @@ console.log(careers)
       ))}
     </div>
   );
+};
+
+/**
+ * Loader function
+ * Fetches any data to be used in the component
+ */
+export const careersLoader = async () => {
+  const res = await fetch("http://localhost:4000/careers");
+
+  if(!res.ok) {
+    throw Error('Could not fetch careers');
+  }
+
+  return res.json();
 };
 
 export default Careers;
